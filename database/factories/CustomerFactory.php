@@ -7,7 +7,8 @@ use App\Models\Customer; // Import the Customer model class
 use Faker\Provider\Address;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Customer>
+ * @extends Factory
+ * <\App\Models\Customer>
  */
 class CustomerFactory extends Factory
 {
@@ -22,7 +23,7 @@ class CustomerFactory extends Factory
         $type = $this->faker->randomElement(['I', 'B']);
         $name = $type == ('I') ? $this->faker->name() : $this->faker->company();
 
-        $data = [
+        return [
             'name' => $name,
             'type' => $type,
             'email' => $this->faker->email(),
@@ -31,10 +32,5 @@ class CustomerFactory extends Factory
             'state' => $this->faker->state(),
             'postal_code' => Address::postcode()
         ];
-
-        // Log the data to identify which value is an array
-        \Log::info(json_encode($data));
-
-        return $data;
     }
 }
